@@ -15,11 +15,24 @@ import CartContext from './context/CartContext'
 class App extends Component {
   state = {cartList: []}
 
+  addCartItem = data => {
+    console.log(data)
+    this.setState(prevState => ({cartList: [...prevState.cartList, data]}))
+  }
+
+  deleteCartItem = () => {}
+
   render() {
     const {cartList} = this.state
     return (
       <BrowserRouter>
-        <CartContext.Provider value={cartList}>
+        <CartContext.Provider
+          value={{
+            cartList,
+            addCartItem: this.addCartItem,
+            deleteCartItem: this.deleteCartItem,
+          }}
+        >
           <Switch>
             <Route exact path="/login" component={LoginForm} />
             <ProtectedRoute exact path="/" component={Home} />
